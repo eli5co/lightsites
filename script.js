@@ -94,12 +94,13 @@ class PortfolioSlider {
     }
 
     setupLightbox() {
-        // Create lightbox
+        // Create lightbox with simpler markup
         const lightbox = document.createElement("div");
         lightbox.className = "lightbox";
         lightbox.innerHTML = `
-            <button class="lightbox-close">&times;</button>
-            <img src="/placeholder.svg" alt="Lightbox image">
+            <div class="lightbox-content">
+                <img src="/placeholder.svg" alt="" aria-hidden="true">
+            </div>
         `;
         document.body.appendChild(lightbox);
 
@@ -114,17 +115,9 @@ class PortfolioSlider {
             });
         });
 
-        // Close lightbox
-        const closeBtn = lightbox.querySelector(".lightbox-close");
-        closeBtn.addEventListener("click", () => {
+        // Close on click anywhere
+        lightbox.addEventListener("click", () => {
             lightbox.classList.remove("active");
-        });
-
-        // Close on outside click
-        lightbox.addEventListener("click", (e) => {
-            if (e.target === lightbox) {
-                lightbox.classList.remove("active");
-            }
         });
 
         // Close on escape key
